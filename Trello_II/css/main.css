@@ -1,0 +1,29 @@
+#btnAgregar, .mg{
+	margin:1% 0%;
+}
+
+#divTarjeta{
+	background-color: white;
+	padding-left: 5%;
+	margin-bottom: 1%;
+	margin-left: 7%;
+}
+#paLista{
+	display: inline-table;
+	margin-right: 1%;
+	
+}
+
+.bg-orange{
+	background-color: orange;
+}
+#paTarjeta{
+	padding: 1% 2%;
+	background-color:gray;
+	width: 20%;
+	display: inline-table;
+	margin-right: 1%;
+}
+#h4{
+	color:white;
+}
