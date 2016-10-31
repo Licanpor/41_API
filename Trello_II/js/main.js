@@ -34,13 +34,23 @@ var añadirLista = function (){
 		paLista.replaceChild(btnAgregar, botonLi);//remplaza el boton Listo! por el boton A;adir Lista en el form-group.
 		paLista.removeChild(input);//elimina el input.
 
+		//VARIABLE DESTINO
 		var divLista = document.createElement('div');//crea un div correspondiente a la Lista
 			divLista.id = 'paTarjeta';//con un id="paTarjeta"(caja gris)
-			divLista.ondragover = function(evt){
+/*DRAGOVER*/divLista.ondragover = function(evt){
 				evt.preventDefault();
-				divLista.className = 'bg-orange';
+				this.classList.add('over');
+				console.log('ondragover');
 			}
-			divLista.ondrop = function(event){
+/*ONDROP*/	divLista.ondrop = function(e){
+				e.preventDefault();
+				var datos = e.dataTransfer.getData("text");
+				var ta = this.getElementsByClassName("form-group")[0];
+				var cajaRosa = document.getElementById(datos);
+				console.log(ta);
+				this.insertBefore(cajaRosa, ta);
+				limpiar();
+				console.log('ondrop');
 				
 			}
 		var h4 = document.createElement('h4');//crea un h4
@@ -50,11 +60,11 @@ var añadirLista = function (){
 		var divForm = document.createElement('div');//crea un div correspondiente a un form-group
 			divForm.className = 'form-group';//con esta clase="form-group"
 		var textarea = document.createElement('textarea');//crea un textarea
-			textarea.className = 'form-control';//con esta clase="form-control"
+			textarea.className = 'form-control';//con esta clase="fors	m-control"
 		var botonTar = document.createElement('button');//crea un button
 			botonTar.id = 'botonTar';//con estos atributos
 			botonTar.type = 'button';
-			botonTar.className = 'btn btn-success';
+			botonTar.className = 'btn btn-info';
 			botonTar.innerHTML = 'Añadir Tarjeta';// y un texto
 	
 		divPrincipal.insertBefore(divLista, divPrincipal.childNodes[0]);
@@ -71,31 +81,28 @@ var añadirLista = function (){
 		
 			return false;
 			}
+			//VARIABLE FUENTE
 			var divTarjeta = document.createElement('div');//crea div blanco
-				divTarjeta.id = 'divTarjeta';
+				divTarjeta.className = 'draggable';
+				divTarjeta.id = "" + (new Date()).getTime();
 				divTarjeta.setAttribute('draggable', 'true');
-			var h5 = document.createElement('h5');//crea h5
-				h5.id = 'h5';
+
+/*DRAGSTART*/	divTarjeta.ondragstart = function drag(ev){
+					ev.dataTransfer.setData("text", divTarjeta.id);
+					ev.target.style.border = "2px dashed white";
+				}
+
+/*DRAGEND*/		divTarjeta.ondragend = function dragended(e){
+					e.target.style.border = "none";
+					limpiar();
+				}
 			var tarjeta = document.createTextNode(textarea.value);//convierte el valor del textarea en un nodo de texto
 			var ultimoChild = divLista.childNodes.length - 1;//Para acceder al ultimo hijo de divLista utilizamos este metodo y lu guardamos en una variable.
 
 			textarea.value = "";//limpia el valor del textarea
 
 			divLista.insertBefore(divTarjeta, divLista.childNodes[ultimoChild]);//inserte divTarjeta antes de el ultimo hijo de divLista en divLista.
-			divTarjeta.appendChild(h5);//inserta el h5 en el divTarjeta
-			h5.appendChild(tarjeta);//inserta la el textpo del textarea en el h5
-
-			var arrastrarTarjeta = function(ev){
-				el.id = "" + (newDate()).getTime();
-				
-				ev.dataTransfer.setData("div", divTarjeta);
-
-				
-					
-				var data = ev.dataTransfer.getData('div');
-					divLista.appendChild(document.getElementById(divTarjeta));
-			}
-			divTarjeta
+			divTarjeta.appendChild(tarjeta);//inserta la el textpo del textarea en el div.
 		}
 		botonTar.addEventListener('click', añadirTarjeta);//cuando den click en el botonTar ejecutara la funcion a;adir Tarjeta
 	}
@@ -104,3 +111,10 @@ var añadirLista = function (){
 btnAgregar.addEventListener('click', añadirLista);//cuando den click en el botonAgregar ejecutara la funcion a;adir Lista.
 
 
+function limpiar() {
+	var divs = document.getElementsByClassName('over');
+	console.log("Quitando la clase a " + divs.length + " elementos");
+	for (var i = 0; i < divs.length; i++){
+		divs[i].classList.remove('over');
+	}
+}

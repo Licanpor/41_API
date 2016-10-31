@@ -2,28 +2,33 @@
 	margin:1% 0%;
 }
 
-#divTarjeta{
-	background-color: white;
-	padding-left: 5%;
-	margin-bottom: 1%;
-	margin-left: 7%;
-}
+.draggable {
+    font: bold 16px;
+    height: 20px;
+    background: pink;
+    cursor: move;
+    margin-bottom: 10px;
+    padding-left: 2%;
+  }
 #paLista{
 	display: inline-table;
-	margin-right: 1%;
-	
+	margin-right: 2%;
 }
-
 .bg-orange{
 	background-color: orange;
 }
 #paTarjeta{
 	padding: 1% 2%;
-	background-color:gray;
+	background-color:lightblue;
 	width: 20%;
 	display: inline-table;
-	margin-right: 1%;
+	margin-right: 2%;
 }
 #h4{
 	color:white;
+}
+.over{
+	box-shadow: 0px 0px 10px 3px, rgba(0,0,0,0,4);
+	-webkit-transform:scale(1.1);
+	margin-right: 3%;
 }
